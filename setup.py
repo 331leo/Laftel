@@ -6,8 +6,8 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 setup(
     name="laftel",
-    version="0.0.1",
-    description="라프텔(애니메이션) API Wrapper (laftel.net)",
+    version="0.1.1",
+    description="라프텔 라이브러리, Laftel API Wrapper (laftel.net)",
     license="GPL-V3",
     author="LeoK",
     author_email="support@leok.kr",
