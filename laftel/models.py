@@ -3,6 +3,8 @@ from dataclasses import dataclass
 
 @dataclass(repr=True)
 class AnimeInfo:
+    url: str #애니 링크
+
     id: int  # ID
     name: str  # 작품 이름
     image: str  # 작품 커버 사진
@@ -29,6 +31,8 @@ class AnimeInfo:
 
 @dataclass(repr=True)
 class SearchResult:
+    url: str #애니 링크 
+    
     id: int  # ID
     name: str  # 작품 이름
     image: str  # 작품 커버 사진
