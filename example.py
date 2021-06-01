@@ -3,12 +3,12 @@ import laftel
 
 query = input("검색할 애니 이름을 입력하세요: ")
 
-data = laftel.sync.searchAnime(query) # List[SearchResult]
+data = laftel.sync.searchAnime(query)  # List[SearchResult]
 print(data[2])
 for results in data:
     print(f"{data.index(results)}. {results.name}")
 
-data = laftel.sync.getAnimeInfo(data[int(input("번호를 입력하세요: "))].id) # AnimeInfo
+data = laftel.sync.getAnimeInfo(data[int(input("번호를 입력하세요: "))].id)  # AnimeInfo
 
 print(data)
 
