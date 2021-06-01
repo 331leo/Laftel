@@ -27,7 +27,7 @@ async def _get_AnimeInfo_by_rawdata(data: dict):
 
     _animation_info = data.get("animation_info", {})
     obj.air_year_quarter = _animation_info.get("air_year_quarter", None)
-    obj.air_time = (
+    obj.air_day = (
         _animation_info.get("original_air_time", None)
         if _animation_info.get("original_air_time", None)
         else _animation_info.get("distributed_air_time", None)
