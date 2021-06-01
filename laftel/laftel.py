@@ -1,5 +1,6 @@
-from .objects import AnimeInfo, SearchResult
+from .models import AnimeInfo, SearchResult
 from .utils import api_request
+from typing import List
 import asyncio
 
 
@@ -10,6 +11,7 @@ class ApiUrl:
 
 async def _get_AnimeInfo_by_rawdata(data: dict):
     obj = AnimeInfo(data)
+    obj.url = f'https://laftel.net/item/{data.get("id", None)}'
     obj.id = data.get("id", None)
     obj.name = data.get("name", None)
     obj.image = data.get("img", None)
@@ -39,19 +41,20 @@ async def _get_AnimeInfo_by_rawdata(data: dict):
     return obj
 
 
-async def get_AnimeInfo(id: int):
+async def getAnimeInfo(id: int) -> AnimeInfo:
     return await _get_AnimeInfo_by_rawdata(
         await api_request(ApiUrl.AnimeItem.format(id=id))
     )
 
 
-async def search_Anime(query: str, issync: bool = False):
+async def searchAnime(query: str, issync: bool = False) -> List[SearchResult]:
     raw_data = await api_request(ApiUrl.SearchAnime.format(query=query))
     datas = raw_data.get("results", None)
     return_list = []
     for data in datas:
 
         obj = SearchResult(data)
+        obj.url = f'https://laftel.net/item/{data.get("id", None)}'
         obj.id = data.get("id", None)
         obj.name = data.get("name", None)
         obj.image = data.get("img", None)
@@ -60,9 +63,9 @@ async def search_Anime(query: str, issync: bool = False):
 
         def get_data():
             return (
-                sync.get_AnimeInfo(data.get("id"))
+                sync.getAnimeInfo(data.get("id"))
                 if issync
-                else get_AnimeInfo(data.get("id"))
+                else getAnimeInfo(data.get("id"))
             )
 
         obj.get_data = get_data
@@ -72,8 +75,8 @@ async def search_Anime(query: str, issync: bool = False):
 
 
 class sync:
-    def get_AnimeInfo(id: int, loop=asyncio.get_event_loop()):
-        return loop.run_until_complete(get_AnimeInfo(id))
+    def getAnimeInfo(id: int, loop=asyncio.get_event_loop()) -> AnimeInfo:
+        return loop.run_until_complete(getAnimeInfo(id))
 
-    def search_Anime(query: str, loop=asyncio.get_event_loop()):
-        return loop.run_until_complete(search_Anime(query=query, issync=True))
+    def searchAnime(query: str, loop=asyncio.get_event_loop()) -> List[SearchResult]:
+        return loop.run_until_complete(searchAnime(query=query, issync=True))
