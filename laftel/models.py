@@ -23,7 +23,7 @@ class AnimeInfo:
     avg_rating: float  # Average User Rating out of 5 (5점 만점 중 평균 별점)
 
     view_male: int  # Percentage of male in total watched user (남성 시청자 비율)
-    view_female: int  # Percentage of woman in total watched user (남성 시청자 비율)
+    view_female: int  # Percentage of woman in total watched user (여성 시청자 비율)
 
     def __init__(self, data):
         self.rawdata = data
