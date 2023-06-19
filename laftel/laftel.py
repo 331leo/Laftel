@@ -5,8 +5,8 @@ import asyncio
 
 
 class ApiUrl:
-    AnimeItem = "https://laftel.net/api/items/v1/{id}/"
-    SearchAnime = "https://laftel.net/api/search/v1/keyword/?keyword={query}"
+    AnimeItem = "https://laftel.net/api/items/v2/{id}/"
+    SearchAnime = "https://laftel.net/api/search/v3/keyword/?keyword={query}"
 
 
 async def getAnimeInfo(id: int) -> AnimeInfo:
