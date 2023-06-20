@@ -71,6 +71,13 @@ AnimeInfo:
     production: str  # Production company (제작사)
 ```
 
+## Discord Bot Example
+<img width="615" alt="image" src="https://user-images.githubusercontent.com/30466064/147765695-1b33c6cc-9954-4e5b-b1f5-53122aca7759.png">
+<img width="596" alt="image" src="https://user-images.githubusercontent.com/30466064/147765773-16b1d228-675f-4766-8e57-5baff42ffaf3.png">
+
 ## Example
 
 [View example.py](example.py)
+
+
+
