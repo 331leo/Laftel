@@ -108,5 +108,5 @@ class SearchEpisode:
         self.episode_order = data.get("episode_order")
         self.thumbnail_path = data.get("thumbnail_path")
         self.running_time = data.get("running_time")
-        self.is_available = data.get("is_available")
+        self.is_available = data.get("is_viewing")
         self.assetid = "/".join(self.thumbnail_path.split("/")[4:7])
