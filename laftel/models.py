@@ -36,7 +36,7 @@ class AnimeInfo:
 
         self.content_rating = data.get("content_rating")
         self.adultonly = data.get("is_adult")
-        self.viewable = data.get("viewable")
+        self.viewable = data.get("is_viewing")
         self.genres = data.get("genres")
         self.tags = data.get("tags")
 
