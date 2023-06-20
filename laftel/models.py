@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, List
+from typing import Callable, List, Optional
 
 
 @dataclass(repr=True)
@@ -22,8 +22,8 @@ class AnimeInfo:
     air_day: str  # Airing day (방영 요일)
     avg_rating: float  # Average User Rating out of 5 (5점 만점 중 평균 별점)
 
-    view_male: int  # Percentage of male in total watched user (남성 시청자 비율)
-    view_female: int  # Percentage of woman in total watched user (여성 시청자 비율)
+    series_id: Optional[int]  # Series ID (시리즈 아이디)
+    production: str  # Production company (제작사)
 
     def __init__(self, data):
         self.id = data.get("id")
@@ -40,18 +40,13 @@ class AnimeInfo:
         self.genres = data.get("genres")
         self.tags = data.get("tags")
 
-        _animation_info = data.get("animation_info", {})
-        self.air_year_quarter = _animation_info.get("air_year_quarter")
-        self.air_day = (
-            _animation_info.get("original_air_time")
-            if _animation_info.get("original_air_time")
-            else _animation_info.get("distributed_air_time")
-        )
+        self.air_year_quarter = data.get("air_year_quarter", "")
+        self.air_day = data.get("distributed_air_time", "")
 
-        _meta_info = data.get("meta_info", {})
-        self.avg_rating = _meta_info.get("avg_rating")
-        self.view_male = _meta_info.get("male")
-        self.view_female = _meta_info.get("female")
+        self.avg_rating = data.get("avg_rating")
+
+        self.series_id = data.get("series_id")
+        self.production = data.get("production", "")
 
 
 @dataclass(repr=True)
@@ -80,3 +75,13 @@ class SearchResult:
         You will need to await this function if you had searched by coroutine.
         """
         raise NotImplementedError
+
+
+@dataclass(repr=True)
+class SeriesSearchResult:
+    id: int  # Anime ID (애니 아이디)
+    name: str  # Anime Title (애니 제목)
+
+    def __init__(self, data):
+        self.id = data.get("id")
+        self.name = data.get("name")
