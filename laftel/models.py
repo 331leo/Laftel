@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Callable, List, Optional
 
 
-@dataclass(repr=True)
 class AnimeInfo:
     id: int  # Anime ID (애니 아이디)
     name: str  # Anime Title (애니 제목)
@@ -18,12 +17,12 @@ class AnimeInfo:
     genres: List[str]  # Genres in korean string (장르 태그 목록)
     tags: List[str]  # Anime tags from Laftel (라프텔이 붙인 태그)
 
-    air_year_quarter: str  # Airing quarter (방영분기 - 2020년 1분기)
-    air_day: str  # Airing day (방영 요일)
+    air_year_quarter: Optional[str]  # Airing quarter (방영분기 - 2020년 1분기)
+    air_day: Optional[str]  # Airing day (방영 요일)
     avg_rating: float  # Average User Rating out of 5 (5점 만점 중 평균 별점)
 
     series_id: Optional[int]  # Series ID (시리즈 아이디)
-    production: str  # Production company (제작사)
+    production: Optional[str]  # Production company (제작사)
 
     def __init__(self, data):
         self.id = data.get("id")
@@ -45,7 +44,7 @@ class AnimeInfo:
 
         self.avg_rating = data.get("avg_rating")
 
-        self.series_id = data.get("series_id")
+        self.series_id = data.get("series_id", None)
         self.production = data.get("production", "")
 
 
@@ -85,3 +84,29 @@ class SeriesSearchResult:
     def __init__(self, data):
         self.id = data.get("id")
         self.name = data.get("name")
+
+
+@dataclass(repr=True)
+class SearchEpisode:
+    id: str  # Episode ID (에피소드 아이디)
+    title: str  # Anime Title (애니 제목)
+    subject: str  # Episode Title (에피소드 제목)
+    description: str  # Episode Description (에피소드 설명)
+    episode_num: str  # Episode Number (에피소드 번호)
+    episode_order: int  # Episode Order (에피소드 순서)
+    thumbnail_path: str  # Thumbnail URL (썸네일 URL)
+    running_time: str  # Running Time (재생 시간)
+    is_available: bool  # Available in Laftel (라프텔 시청 가능 여부)
+    assetid: str  # Asset ID (에셋 아이디)
+
+    def __init__(self, data):
+        self.id = data.get("id")
+        self.title = data.get("title")
+        self.subject = data.get("subject")
+        self.description = data.get("description")
+        self.episode_num = data.get("episode_num")
+        self.episode_order = data.get("episode_order")
+        self.thumbnail_path = data.get("thumbnail_path")
+        self.running_time = data.get("running_time")
+        self.is_available = data.get("is_available")
+        self.assetid = "/".join(self.thumbnail_path.split("/")[4:7])
